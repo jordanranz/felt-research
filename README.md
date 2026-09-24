@@ -13,6 +13,16 @@ this repository. No Spotify, Deezer, Splice, participant, or third-party audio i
 
 ## Run locally
 
+Repository boundaries:
+
+- `src/felt/`: reusable Python research code and audio utilities.
+- `apps/website/` and `apps/visualizer/`: documented locations for future research web apps.
+- `scripts/`: thin utility commands, starting with reproducible test-audio export.
+- `configs/`, `reports/`, and `models/`: experiment settings, findings, and released weights.
+
+See [utility commands](scripts/README.md) for fixture generation and the training workflow.
+The web applications are not implemented yet and add no frontend dependency to training.
+
 Install Python 3.12 and [uv](https://docs.astral.sh/uv/), then:
 
 ```bash

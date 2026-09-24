@@ -23,8 +23,8 @@ def environment():
 
     source = Path(__file__).parent
     code = hashlib.sha256()
-    for path in sorted(source.glob("*.py")):
-        code.update(path.name.encode())
+    for path in sorted(source.rglob("*.py")):
+        code.update(path.relative_to(source).as_posix().encode())
         code.update(path.read_bytes())
     lock = Path("uv.lock")
     return {
