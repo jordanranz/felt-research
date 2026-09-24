@@ -1,0 +1,143 @@
+{
+  "mode": "combined",
+  "dataset_id": "608d6e414197f0a427c2b74980a3ff7015522b7e43729edcd980b44dc5785380",
+  "config": {
+    "seed": 42,
+    "sample_rate": 16000,
+    "frame_rate": 100,
+    "seconds": 8,
+    "families": {
+      "train": 48,
+      "val": 12,
+      "test": 12
+    },
+    "variants_per_family": 4,
+    "epochs": 30,
+    "batch_size": 32,
+    "learning_rate": 0.003,
+    "hidden_channels": 32,
+    "device": "cpu",
+    "threads": 4,
+    "precision": "float32",
+    "generator_version": "synthetic-v1",
+    "preprocessing_version": "frame-features-v1",
+    "target_version": "causal-rule-v1",
+    "model_version": "causal-tcn-v1",
+    "lookahead_frames": 0,
+    "loss": "region-balanced-mse-v1"
+  },
+  "training_environment": {
+    "python": "3.12.14",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "torch": "2.14.0",
+    "numpy": "2.5.3",
+    "packages": {
+      "felt-research": "0.1.0",
+      "numpy": "2.5.3",
+      "torch": "2.14.0",
+      "matplotlib": "3.11.2"
+    },
+    "git_commit": "e7b83c81e2b4b203e1a39b3f38ad0ab2c760d202",
+    "git_status": "",
+    "source_sha256": "75f0a4b4420b976008405f7f63cdde68cec32b7e7a3a24f6a0b60c5d755ada4e",
+    "lock_sha256": "6440f073a9dcdb54ace8c19f4bef60af8a671b5087df8736ae2412afe76092e1"
+  },
+  "evaluation_environment": {
+    "python": "3.12.14",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "torch": "2.14.0",
+    "numpy": "2.5.3",
+    "packages": {
+      "felt-research": "0.1.0",
+      "numpy": "2.5.3",
+      "torch": "2.14.0",
+      "matplotlib": "3.11.2"
+    },
+    "git_commit": "e7b83c81e2b4b203e1a39b3f38ad0ab2c760d202",
+    "git_status": "",
+    "source_sha256": "75f0a4b4420b976008405f7f63cdde68cec32b7e7a3a24f6a0b60c5d755ada4e",
+    "lock_sha256": "6440f073a9dcdb54ace8c19f4bef60af8a671b5087df8736ae2412afe76092e1"
+  },
+  "parameters": 11169,
+  "evaluation_split": "val",
+  "evaluated_clips": 48,
+  "metrics": {
+    "model": {
+      "rmse": 0.08036310970783234,
+      "startup_rmse": 0.16582874953746796,
+      "first_frame_mean_intensity": 0.3860733211040497,
+      "active_rmse": 0.09601367264986038,
+      "silence_mean_intensity": 0.07972878962755203,
+      "event_precision": 0.9642090193271295,
+      "event_recall": 0.9669777458722182,
+      "event_f1": 0.9655913978494622,
+      "matched_timing_mae_ms": 1.3659985152190053,
+      "matched_events": 1347,
+      "missed_events": 46,
+      "extra_events": 50
+    },
+    "beat_pulses": {
+      "rmse": 0.14822016656398773,
+      "startup_rmse": 0.0053632669150829315,
+      "first_frame_mean_intensity": 0.0,
+      "active_rmse": 0.2825075387954712,
+      "silence_mean_intensity": 0.003215874545276165,
+      "event_precision": 1.0,
+      "event_recall": 0.6130653266331658,
+      "event_f1": 0.7601246105919003,
+      "matched_timing_mae_ms": 0.0,
+      "matched_events": 854,
+      "missed_events": 539,
+      "extra_events": 0
+    },
+    "constant_train_mean": {
+      "rmse": 0.16493985056877136,
+      "startup_rmse": 0.09735473990440369,
+      "first_frame_mean_intensity": 0.10139131546020508,
+      "active_rmse": 0.28441575169563293,
+      "silence_mean_intensity": 0.10139131546020508,
+      "event_precision": 0.0,
+      "event_recall": 0.0,
+      "event_f1": 0.0,
+      "matched_timing_mae_ms": null,
+      "matched_events": 0,
+      "missed_events": 1393,
+      "extra_events": 0
+    },
+    "silence": {
+      "rmse": 0.19168202579021454,
+      "startup_rmse": 0.08573725074529648,
+      "first_frame_mean_intensity": 0.0,
+      "active_rmse": 0.3647523522377014,
+      "silence_mean_intensity": 0.0,
+      "event_precision": 0.0,
+      "event_recall": 0.0,
+      "event_f1": 0.0,
+      "matched_timing_mae_ms": null,
+      "matched_events": 0,
+      "missed_events": 1393,
+      "extra_events": 0
+    },
+    "procedural_oracle": {
+      "rmse": 0.0,
+      "startup_rmse": 0.0,
+      "first_frame_mean_intensity": 0.0,
+      "active_rmse": 0.0,
+      "silence_mean_intensity": 0.005141623318195343,
+      "event_precision": 1.0,
+      "event_recall": 1.0,
+      "event_f1": 1.0,
+      "matched_timing_mae_ms": 0.0,
+      "matched_events": 1393,
+      "missed_events": 0,
+      "extra_events": 0
+    }
+  },
+  "cpu_whole_clip_latency_ms": {
+    "median": 0.22218800586415455,
+    "p95": 0.25959184495150106,
+    "warmup": 5,
+    "repetitions": 30
+  },
+  "latency_scope": "Model only, full 8-second clip; excludes preprocessing and playback. This is not a streaming latency measurement."
+}

@@ -4,6 +4,9 @@ Reproducible model training and evaluation for haptics and sensory interaction.
 
 **First completed run:** [Experiment 001 results and audio previews](reports/001/README.md).
 
+**Follow-up:** [Short loss pilot](reports/pilot001/README.md). Two alternatives failed the
+validation gates; the original baseline remains the reference model.
+
 The first task maps synthetic audio and supplied beat timestamps to a causal,
 100 Hz intensity envelope. The target is a published procedural rule. Learning it
 validates this pipeline; it does not establish perceptual quality or novelty.

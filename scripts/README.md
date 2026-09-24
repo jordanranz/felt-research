@@ -21,6 +21,17 @@ clips; `--count` selects the first N in manifest order, not new random examples.
 
 ## Training and evaluation
 
+For the bounded, validation-only loss comparison:
+
+```bash
+uv run python scripts/run_loss_pilot.py --out runs/pilot001
+```
+
+The plan lives in `configs/pilot001.json`; its fixed gates and interpretation are in
+`reports/pilot001/`. Use a fresh output directory when reproducing it. The command exits
+with an error on a failed subprocess and never starts an overnight job automatically.
+For other tuning evaluations, explicitly pass `--split val` to `felt.evaluate`.
+
 Training currently generates its full dataset in memory. Exporting WAV fixtures is
 optional, not an input step for training:
 

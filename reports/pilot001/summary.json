@@ -1,0 +1,92 @@
+{
+  "plan": {
+    "base_config": "configs/experiment001.json",
+    "mode": "combined",
+    "evaluation_split": "val",
+    "variants": {
+      "baseline": "active-weighted-mse-v1",
+      "balanced": "region-balanced-mse-v1",
+      "balanced-startup": "region-startup-mse-v1"
+    },
+    "gates_relative_to_baseline": {
+      "silence_mean_intensity_max_ratio": 0.5,
+      "startup_rmse_max_ratio": 0.5,
+      "active_rmse_max_ratio": 1.2,
+      "event_f1_max_drop": 0.02
+    }
+  },
+  "results": {
+    "baseline": {
+      "train_wall_seconds": 8.109,
+      "evaluation_wall_seconds": 1.36,
+      "metrics": {
+        "rmse": 0.06473054736852646,
+        "startup_rmse": 0.20156925916671753,
+        "first_frame_mean_intensity": 0.4374943673610687,
+        "active_rmse": 0.05625111982226372,
+        "silence_mean_intensity": 0.06770311295986176,
+        "event_precision": 0.9628305932809149,
+        "event_recall": 0.9669777458722182,
+        "event_f1": 0.9648997134670487,
+        "matched_timing_mae_ms": 0.46770601336302897,
+        "matched_events": 1347,
+        "missed_events": 46,
+        "extra_events": 52
+      },
+      "dataset_id": "608d6e414197f0a427c2b74980a3ff7015522b7e43729edcd980b44dc5785380"
+    },
+    "balanced": {
+      "train_wall_seconds": 8.122,
+      "evaluation_wall_seconds": 1.359,
+      "metrics": {
+        "rmse": 0.08036310970783234,
+        "startup_rmse": 0.16582874953746796,
+        "first_frame_mean_intensity": 0.3860733211040497,
+        "active_rmse": 0.09601367264986038,
+        "silence_mean_intensity": 0.07972878962755203,
+        "event_precision": 0.9642090193271295,
+        "event_recall": 0.9669777458722182,
+        "event_f1": 0.9655913978494622,
+        "matched_timing_mae_ms": 1.3659985152190053,
+        "matched_events": 1347,
+        "missed_events": 46,
+        "extra_events": 50
+      },
+      "dataset_id": "608d6e414197f0a427c2b74980a3ff7015522b7e43729edcd980b44dc5785380",
+      "gates": {
+        "quiet": false,
+        "startup": false,
+        "active": false,
+        "events": true
+      },
+      "passes_all_gates": false
+    },
+    "balanced-startup": {
+      "train_wall_seconds": 8.148,
+      "evaluation_wall_seconds": 1.368,
+      "metrics": {
+        "rmse": 0.19170333445072174,
+        "startup_rmse": 0.08704131096601486,
+        "first_frame_mean_intensity": 0.055281657725572586,
+        "active_rmse": 0.36475199460983276,
+        "silence_mean_intensity": 0.0003666049742605537,
+        "event_precision": 0.0,
+        "event_recall": 0.0,
+        "event_f1": 0.0,
+        "matched_timing_mae_ms": null,
+        "matched_events": 0,
+        "missed_events": 1393,
+        "extra_events": 0
+      },
+      "dataset_id": "608d6e414197f0a427c2b74980a3ff7015522b7e43729edcd980b44dc5785380",
+      "gates": {
+        "quiet": true,
+        "startup": true,
+        "active": false,
+        "events": false
+      },
+      "passes_all_gates": false
+    }
+  },
+  "test_set_evaluated": false
+}
