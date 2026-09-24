@@ -5,6 +5,7 @@ runs/
 data/
 *.pt
 *.pth
+!models/001/*.pt
 .env
 .env.*
 !.env.example

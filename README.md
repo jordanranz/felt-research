@@ -96,8 +96,9 @@ Latency is measured on CPU for one whole clip after warmup and excludes preproce
 and playback. It is not a streaming latency benchmark. Independent seeds, other sound
 generators, real recordings, and human tests are needed before broader claims.
 
-`runs/`, datasets, and weights are ignored by Git. Selected reports and synthetic previews
-can be published under `reports/`. JSON tracking keeps the first pipeline self-contained;
+`runs/`, datasets, and weights are ignored by Git except for the explicitly released
+reference weights under `models/001/`. Selected reports and synthetic previews
+are published under `reports/`. JSON tracking keeps the first pipeline self-contained;
 a hosted or local experiment-tracking service can be added when run comparison needs it.
 
 ## Development
@@ -119,5 +120,19 @@ This repository implements its own synthetic generator and small TCN; it contain
 copied Sound2Hap or HapticGen code, weights, or datasets. Those projects informed the
 broader research discussion. Human preference learning and hardware calibration remain future work.
 
-License selection is pending. This public source repository does not yet grant an
-open-source license. Dataset and model releases will document their terms separately.
+## License
+
+The original code, documentation, synthetic example artifacts, and the original
+Experiment 001 weights explicitly listed in [models/001](models/001/README.md)
+are released under the [MIT License](LICENSE).
+
+This license applies to the released materials, including those named weights.
+It does not license unpublished product code, ring engineering, or future model releases.
+Third-party dependencies retain their own licenses. Any future third-party datasets or
+derived models must document their applicable terms separately.
+
+The reference checkpoints are available without training:
+
+```bash
+uv run python -m felt.evaluate --checkpoint models/001/combined.pt --out runs/reference-evaluation
+```

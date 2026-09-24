@@ -71,7 +71,8 @@ The audio preview preserves the 10 ms frame-end offset and uses fixed gain for a
 
 Follow the root README. Each model folder includes the 30-epoch loss history, predictions,
 previews, and metrics. The manifest identifies every source pattern and generation seed.
-Full checkpoints remain local under `runs/`; weights are not part of this initial public release.
+Full resumable checkpoints remain local under `runs/`. The validation-selected inference
+checkpoints are now available under MIT in [models/001](../../models/001/README.md).
 Training provenance points to the source commit used for each run. Later documentation and
 lint-only commits do not alter the training implementation.
 

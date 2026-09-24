@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "license": "MIT",
+  "license_file": "../../LICENSE",
+  "checkpoints": [
+    {
+      "file": "combined.pt",
+      "license": "MIT",
+      "sha256": "2c9da6b8c5e13f739dee4818969c689ef54cb500bfa232e384a3c94fe56b5ef3",
+      "dataset_id": "608d6e414197f0a427c2b74980a3ff7015522b7e43729edcd980b44dc5785380",
+      "training_source_commit": "166c3c5b536d5111387a4081440c86dc5bd0aaf6",
+      "parameters": 11169
+    },
+    {
+      "file": "audio.pt",
+      "license": "MIT",
+      "sha256": "2db5125059c3a1a179aa088eebe2c18fb10383c4bb0659b7ce1f97241ee9f910",
+      "dataset_id": "608d6e414197f0a427c2b74980a3ff7015522b7e43729edcd980b44dc5785380",
+      "training_source_commit": "c421e421ad1a2a293d0f24d38e06220382aebff5",
+      "parameters": 10849
+    },
+    {
+      "file": "beat.pt",
+      "license": "MIT",
+      "sha256": "ad59f51203a2027ada67b43ae0972cb2dd874ec9f5603b7f87ff58134fff9b69",
+      "dataset_id": "608d6e414197f0a427c2b74980a3ff7015522b7e43729edcd980b44dc5785380",
+      "training_source_commit": "c421e421ad1a2a293d0f24d38e06220382aebff5",
+      "parameters": 10689
+    }
+  ]
+}
