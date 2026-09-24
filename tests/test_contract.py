@@ -95,6 +95,11 @@ def test_evaluation_and_export(config, tmp_path):
     assert result["metrics"]["procedural_oracle"]["rmse"] == 0
     assert (tmp_path / "report/comparison.wav").stat().st_size > 44
     validate(json.loads((tmp_path / "report/model.json").read_text()))
+    validation = evaluate(tmp_path / "run/best.pt", tmp_path / "val-report", split="val")
+    assert validation["evaluation_split"] == "val"
+    arrays, _ = make_dataset(config)
+    exported = json.loads((tmp_path / "val-report/procedural_oracle.json").read_text())
+    np.testing.assert_array_equal(exported["intensity"], arrays["val"][1][0])
     truth = np.zeros((1, 50))
     truth[0, 10:15] = 0.5
     shifted = np.zeros_like(truth)

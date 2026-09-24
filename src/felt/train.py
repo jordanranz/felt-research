@@ -112,14 +112,14 @@ def train(config, out, mode="combined", resume=None, stop_after=None):
         for batch in order.split(config["batch_size"]):
             batch = batch.to(device)
             optimizer.zero_grad(set_to_none=True)
-            value = loss(model(x[batch]), y[batch])
+            value = loss(model(x[batch]), y[batch], config["loss"])
             value.backward()
             torch.nn.utils.clip_grad_norm_(model.parameters(), 1.0)
             optimizer.step()
             total += value.item() * len(batch)
         model.eval()
         with torch.no_grad():
-            val = loss(model(tensors["val"][0]), tensors["val"][1]).item()
+            val = loss(model(tensors["val"][0]), tensors["val"][1], config["loss"]).item()
         scheduler.step()
         if val < best:
             best = val

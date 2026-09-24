@@ -36,6 +36,22 @@ class EnvelopeModel(nn.Module):
         return self.network(x[:, self.channels]).squeeze(1)
 
 
-def loss(prediction, target):
-    weights = 1 + 4 * (target > 0.1).float()
-    return torch.mean(weights * (prediction - target) ** 2)
+def loss(prediction, target, kind="active-weighted-mse-v1"):
+    errors = (prediction - target) ** 2
+    if kind == "active-weighted-mse-v1":
+        weights = 1 + 4 * (target > 0.1).float()
+        return torch.mean(weights * errors)
+    if kind not in ("region-balanced-mse-v1", "region-startup-mse-v1"):
+        raise ValueError(f"Unknown loss: {kind}")
+    # Normalize each region separately so clip occupancy does not set its influence.
+    regions = (
+        (target > 0.1, 0.5),
+        (target < 0.02, 0.35),
+        ((target >= 0.02) & (target <= 0.1), 0.15),
+    )
+    value = sum(
+        weight * (errors * mask).sum() / mask.sum().clamp_min(1) for mask, weight in regions
+    )
+    if kind == "region-startup-mse-v1":
+        value = value + errors[:, :29].mean()
+    return value

@@ -1,0 +1,16 @@
+{
+  "base_config": "configs/experiment001.json",
+  "mode": "combined",
+  "evaluation_split": "val",
+  "variants": {
+    "baseline": "active-weighted-mse-v1",
+    "balanced": "region-balanced-mse-v1",
+    "balanced-startup": "region-startup-mse-v1"
+  },
+  "gates_relative_to_baseline": {
+    "silence_mean_intensity_max_ratio": 0.5,
+    "startup_rmse_max_ratio": 0.5,
+    "active_rmse_max_ratio": 1.2,
+    "event_f1_max_drop": 0.02
+  }
+}

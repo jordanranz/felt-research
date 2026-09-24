@@ -24,11 +24,16 @@ def load_config(path):
         "preprocessing_version": "frame-features-v1",
         "target_version": "causal-rule-v1",
         "model_version": "causal-tcn-v1",
-        "loss": "active-weighted-mse-v1",
     }
     for key, value in expected.items():
         if config[key] != value:
             raise ValueError(f"Unsupported {key}: {config[key]}")
+    if config["loss"] not in (
+        "active-weighted-mse-v1",
+        "region-balanced-mse-v1",
+        "region-startup-mse-v1",
+    ):
+        raise ValueError(f"Unsupported loss: {config['loss']}")
     if any(
         config[key] <= 0
         for key in (

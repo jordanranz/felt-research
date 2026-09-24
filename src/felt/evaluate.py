@@ -43,6 +43,8 @@ def metrics(predicted, target, hz=100):
     recall = hits / (hits + missing) if hits + missing else 0.0
     return {
         "rmse": float(np.sqrt(errors.mean())),
+        "startup_rmse": float(np.sqrt(errors[:, :29].mean())),
+        "first_frame_mean_intensity": float(predicted[:, 0].mean()),
         "active_rmse": float(np.sqrt(errors[active].mean())) if active.any() else None,
         "silence_mean_intensity": float(predicted[silence].mean()) if silence.any() else None,
         "event_precision": precision,
@@ -55,7 +57,9 @@ def metrics(predicted, target, hz=100):
     }
 
 
-def evaluate(checkpoint_path, out):
+def evaluate(checkpoint_path, out, split="test"):
+    if split not in ("val", "test"):
+        raise ValueError("Evaluation split must be val or test")
     out = Path(out)
     out.mkdir(parents=True, exist_ok=True)
     checkpoint = torch.load(checkpoint_path, map_location="cpu", weights_only=True)
@@ -67,7 +71,7 @@ def evaluate(checkpoint_path, out):
     model = EnvelopeModel(checkpoint["mode"], config["hidden_channels"])
     model.load_state_dict(checkpoint["state_dict"])
     model.eval()
-    x, y = splits["test"]
+    x, y = splits[split]
     with torch.no_grad():
         prediction = model(torch.from_numpy(x)).numpy()
         sample = torch.from_numpy(x[:1])
@@ -92,7 +96,8 @@ def evaluate(checkpoint_path, out):
         "training_environment": checkpoint["environment"],
         "evaluation_environment": environment(),
         "parameters": sum(p.numel() for p in model.parameters()),
-        "test_clips": len(y),
+        "evaluation_split": split,
+        "evaluated_clips": len(y),
         "metrics": {
             name: metrics(value, y, config["frame_rate"]) for name, value in outputs.items()
         },
@@ -106,7 +111,7 @@ def evaluate(checkpoint_path, out):
         "This is not a streaming latency measurement.",
     }
     (out / "metrics.json").write_text(json.dumps(report, indent=2) + "\n")
-    record = next(r for r in manifest["records"] if r["split"] == "test")
+    record = next(r for r in manifest["records"] if r["split"] == split)
     wav, beats, _ = synthesize(record["pattern"], record["seed"], config)
     assert np.array_equal(features(wav, beats, config), x[0])
     previews = {}
@@ -126,7 +131,7 @@ def evaluate(checkpoint_path, out):
     for beat in beats:
         axes[0].axvline(beat, color="#805ad5", alpha=0.3, lw=0.7)
     axes[0].set_ylabel("Audio / beats")
-    axes[0].set_title("Felt Research · first held-out synthetic clip")
+    axes[0].set_title(f"Felt Research · first {split} synthetic clip")
     for name, color in (
         ("procedural_oracle", "#1a202c"),
         ("model", "#008080"),
@@ -145,8 +150,9 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--checkpoint", required=True)
     parser.add_argument("--out", required=True)
+    parser.add_argument("--split", choices=["val", "test"], default="test")
     args = parser.parse_args()
-    evaluate(args.checkpoint, args.out)
+    evaluate(args.checkpoint, args.out, args.split)
 
 
 if __name__ == "__main__":
