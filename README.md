@@ -2,6 +2,8 @@
 
 Reproducible model training and evaluation for haptics and sensory interaction.
 
+**First completed run:** [Experiment 001 results and audio previews](reports/001/README.md).
+
 The first task maps synthetic audio and supplied beat timestamps to a causal,
 100 Hz intensity envelope. The target is a published procedural rule. Learning it
 validates this pipeline; it does not establish perceptual quality or novelty.

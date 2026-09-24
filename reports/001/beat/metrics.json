@@ -1,0 +1,132 @@
+{
+  "mode": "beat",
+  "dataset_id": "608d6e414197f0a427c2b74980a3ff7015522b7e43729edcd980b44dc5785380",
+  "config": {
+    "seed": 42,
+    "sample_rate": 16000,
+    "frame_rate": 100,
+    "seconds": 8,
+    "families": {
+      "train": 48,
+      "val": 12,
+      "test": 12
+    },
+    "variants_per_family": 4,
+    "epochs": 30,
+    "batch_size": 32,
+    "learning_rate": 0.003,
+    "hidden_channels": 32,
+    "device": "cpu",
+    "threads": 4,
+    "precision": "float32",
+    "generator_version": "synthetic-v1",
+    "preprocessing_version": "frame-features-v1",
+    "target_version": "causal-rule-v1",
+    "model_version": "causal-tcn-v1",
+    "lookahead_frames": 0,
+    "loss": "active-weighted-mse-v1"
+  },
+  "training_environment": {
+    "python": "3.12.14",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "torch": "2.14.0",
+    "numpy": "2.5.3",
+    "packages": {
+      "felt-research": "0.1.0",
+      "numpy": "2.5.3",
+      "torch": "2.14.0",
+      "matplotlib": "3.11.2"
+    },
+    "git_commit": "c421e421ad1a2a293d0f24d38e06220382aebff5",
+    "git_status": "?? reports/",
+    "source_sha256": "643b2e3c338eea67f1978436ffa67389ed15b623d4b5a1145b1db19ccb3f622b",
+    "lock_sha256": "6440f073a9dcdb54ace8c19f4bef60af8a671b5087df8736ae2412afe76092e1"
+  },
+  "evaluation_environment": {
+    "python": "3.12.14",
+    "platform": "macOS-26.6.2-arm64-arm-64bit",
+    "torch": "2.14.0",
+    "numpy": "2.5.3",
+    "packages": {
+      "felt-research": "0.1.0",
+      "numpy": "2.5.3",
+      "torch": "2.14.0",
+      "matplotlib": "3.11.2"
+    },
+    "git_commit": "c421e421ad1a2a293d0f24d38e06220382aebff5",
+    "git_status": "?? reports/",
+    "source_sha256": "643b2e3c338eea67f1978436ffa67389ed15b623d4b5a1145b1db19ccb3f622b",
+    "lock_sha256": "6440f073a9dcdb54ace8c19f4bef60af8a671b5087df8736ae2412afe76092e1"
+  },
+  "parameters": 10689,
+  "test_clips": 48,
+  "metrics": {
+    "model": {
+      "rmse": 0.15875355899333954,
+      "active_rmse": 0.19211308658123016,
+      "silence_mean_intensity": 0.15278935432434082,
+      "event_precision": 0.6603892027620841,
+      "event_recall": 0.7746686303387335,
+      "event_f1": 0.7129786513046424,
+      "matched_timing_mae_ms": 3.536121673003802,
+      "matched_events": 1052,
+      "missed_events": 306,
+      "extra_events": 541
+    },
+    "beat_pulses": {
+      "rmse": 0.1583447903394699,
+      "active_rmse": 0.29914358258247375,
+      "silence_mean_intensity": 0.0027404013089835644,
+      "event_precision": 1.0,
+      "event_recall": 0.5780559646539027,
+      "event_f1": 0.7326178254783015,
+      "matched_timing_mae_ms": 0.0,
+      "matched_events": 785,
+      "missed_events": 573,
+      "extra_events": 0
+    },
+    "constant_train_mean": {
+      "rmse": 0.1714780330657959,
+      "active_rmse": 0.29538968205451965,
+      "silence_mean_intensity": 0.10139131546020508,
+      "event_precision": 0.0,
+      "event_recall": 0.0,
+      "event_f1": 0.0,
+      "matched_timing_mae_ms": null,
+      "matched_events": 0,
+      "missed_events": 1358,
+      "extra_events": 0
+    },
+    "silence": {
+      "rmse": 0.19951686263084412,
+      "active_rmse": 0.37642961740493774,
+      "silence_mean_intensity": 0.0,
+      "event_precision": 0.0,
+      "event_recall": 0.0,
+      "event_f1": 0.0,
+      "matched_timing_mae_ms": null,
+      "matched_events": 0,
+      "missed_events": 1358,
+      "extra_events": 0
+    },
+    "procedural_oracle": {
+      "rmse": 0.0,
+      "active_rmse": 0.0,
+      "silence_mean_intensity": 0.0049780369736254215,
+      "event_precision": 1.0,
+      "event_recall": 1.0,
+      "event_f1": 1.0,
+      "matched_timing_mae_ms": 0.0,
+      "matched_events": 1358,
+      "missed_events": 0,
+      "extra_events": 0
+    }
+  },
+  "cpu_whole_clip_latency_ms": {
+    "median": 0.2436875074636191,
+    "p95": 0.27738560238503845,
+    "warmup": 5,
+    "repetitions": 30
+  },
+  "latency_scope": "Model only, full 8-second clip; excludes preprocessing and playback. This is not a streaming latency measurement."
+}
