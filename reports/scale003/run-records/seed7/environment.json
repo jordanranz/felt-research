@@ -1,0 +1,16 @@
+{
+  "python": "3.12.14",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "torch": "2.14.0",
+  "numpy": "2.5.3",
+  "packages": {
+    "felt-research": "0.1.0",
+    "numpy": "2.5.3",
+    "torch": "2.14.0",
+    "matplotlib": "3.11.2"
+  },
+  "git_commit": "c2dfc65ecda3e132f0bac2d4750bb0dd88fc3fd9",
+  "git_status": "",
+  "source_sha256": "bf0fc34a4681a5d22528de9c789f54a5455189c241c45bb4fe28add13fa9ee51",
+  "lock_sha256": "6440f073a9dcdb54ace8c19f4bef60af8a671b5087df8736ae2412afe76092e1"
+}

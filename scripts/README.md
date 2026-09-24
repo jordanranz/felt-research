@@ -58,3 +58,15 @@ First run a short validation job, inspect previews and loss, estimate runtime an
 then run a bounded sweep with separate run directories. Save resumable checkpoints and
 keep held-out test data out of tuning. More epochs or more versions of the same simple
 generator do not establish generalization to real music. No overnight job is scheduled here.
+
+## Bounded 10x synthetic study
+
+```bash
+uv run python scripts/run_scale_study.py --out runs/scale003
+```
+
+The fixed plan is in `reports/scale003/PLAN.md`. It checks disjoint rhythm families
+against prior development data, trains three predetermined initialization seeds,
+and evaluates all three on a fresh held-out test split after training finishes.
+Each run begins with a three-epoch timing check and resumes its saved checkpoint.
+It retains the same synthetic instruments and teacher; this is not a real-music test.
