@@ -23,11 +23,12 @@ def load_config(path):
         "generator_version": "synthetic-v1",
         "preprocessing_version": "frame-features-v1",
         "target_version": "causal-rule-v1",
-        "model_version": "causal-tcn-v1",
     }
     for key, value in expected.items():
         if config[key] != value:
             raise ValueError(f"Unsupported {key}: {config[key]}")
+    if config["model_version"] not in ("causal-tcn-v1", "warmup-sigmoid-v2", "warmup-linear-v2"):
+        raise ValueError(f"Unsupported model_version: {config['model_version']}")
     if config["loss"] not in (
         "active-weighted-mse-v1",
         "region-balanced-mse-v1",

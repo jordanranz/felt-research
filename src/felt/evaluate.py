@@ -68,7 +68,7 @@ def evaluate(checkpoint_path, out, split="test"):
     splits, manifest = make_dataset(config)
     if checkpoint["dataset_id"] != manifest["dataset_id"]:
         raise ValueError("Evaluation dataset does not match training manifest")
-    model = EnvelopeModel(checkpoint["mode"], config["hidden_channels"])
+    model = EnvelopeModel(checkpoint["mode"], config["hidden_channels"], config["model_version"])
     model.load_state_dict(checkpoint["state_dict"])
     model.eval()
     x, y = splits[split]

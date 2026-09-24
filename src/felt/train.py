@@ -56,9 +56,10 @@ def train(config, out, mode="combined", resume=None, stop_after=None):
     if out.exists() and any(out.iterdir()) and resume is None:
         raise ValueError("Run directory is not empty. Resume it or choose a new directory.")
     out.mkdir(parents=True, exist_ok=True)
-    random.seed(config["seed"])
-    np.random.seed(config["seed"])
-    torch.manual_seed(config["seed"])
+    initialization_seed = config.get("initialization_seed", config["seed"])
+    random.seed(initialization_seed)
+    np.random.seed(initialization_seed)
+    torch.manual_seed(initialization_seed)
     torch.set_num_threads(config["threads"])
     torch.use_deterministic_algorithms(True)
     device = select_device(config["device"])
@@ -68,7 +69,7 @@ def train(config, out, mode="combined", resume=None, stop_after=None):
         for key, arrays in splits.items()
         if key != "test"
     }
-    model = EnvelopeModel(mode, config["hidden_channels"]).to(device)
+    model = EnvelopeModel(mode, config["hidden_channels"], config["model_version"]).to(device)
     optimizer = torch.optim.AdamW(model.parameters(), lr=config["learning_rate"])
     scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, config["epochs"])
     start, best, history = 0, float("inf"), []
