@@ -1,0 +1,26 @@
+{
+  "seed": 42,
+  "sample_rate": 16000,
+  "frame_rate": 100,
+  "seconds": 8,
+  "families": {
+    "train": 48,
+    "val": 12,
+    "test": 12
+  },
+  "variants_per_family": 4,
+  "epochs": 30,
+  "batch_size": 32,
+  "learning_rate": 0.003,
+  "hidden_channels": 32,
+  "device": "cpu",
+  "threads": 4,
+  "precision": "float32",
+  "generator_version": "synthetic-v1",
+  "preprocessing_version": "frame-features-v1",
+  "target_version": "causal-rule-v1",
+  "model_version": "causal-tcn-v1",
+  "lookahead_frames": 0,
+  "loss": "active-weighted-mse-v1",
+  "initialization_seed": 101
+}

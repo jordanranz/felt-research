@@ -73,7 +73,7 @@ means these are practical local wall times, not isolated performance benchmarks.
 - [Original preview: source left, prediction right](baseline/comparison.wav)
 - [Candidate preview: source left, prediction right](candidate/comparison.wav)
 - [All confirmation metrics, probes, and gate decisions](confirmation-summary.json)
-- [Run configs, histories, and evaluation provenance](runs/)
+- [Run configs, histories, and evaluation provenance](run-records/)
 - [Mac GPU inference check](mps-inference.json)
 
 Examples use the first validation clip and the prespecified development seed 42, not
