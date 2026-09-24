@@ -30,3 +30,7 @@ This changes sound coverage, not the learned objective. The teacher still reward
 energy-following, including noise. Success does not establish musical selectivity,
 pleasant haptics, realistic music synthesis, or hardware suitability. Real recordings
 and physical output need a separate evaluation and are not included in this study.
+
+The illustrative preview will use seed 7 and the first tonal-bed test clip in
+manifest order. This selection is fixed before test evaluation; it illustrates the
+validation failure category rather than choosing a favorable test example.

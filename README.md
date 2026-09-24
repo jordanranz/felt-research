@@ -12,6 +12,14 @@ The opt-in `warmup-linear-v2` candidate passed all gates for a larger synthetic 
 Use `configs/preflight002-candidate.json`; the default Experiment 001 config and released
 weights remain unchanged for reproduction.
 
+**Scaling:** [Tenfold dataset study](reports/scale003/README.md). Three fixed seeds passed
+on new synthetic rhythm families.
+
+**Sound diversity:** [Transfer and retraining results](reports/diversity004/README.md).
+Broader procedural audio improved mean held-out event F1 from 0.879 to 0.982.
+Sustained tones remain the weakest profile. [Physical playback evaluation](docs/physical-evaluation.md)
+is the next proposed check; synthetic accuracy does not establish useful sensations.
+
 The first task maps synthetic audio and supplied beat timestamps to a causal,
 100 Hz intensity envelope. The target is a published procedural rule. Learning it
 validates this pipeline; it does not establish perceptual quality or novelty.
@@ -78,8 +86,9 @@ variations in tempo, onset offset, and sound strength. Defaults produce 192 trai
 Audio features are frame RMS and low/high spectral energy with fixed scaling, plus
 a beat impulse and decaying beat trace. There is no clip-level normalization.
 The teacher combines `0.7 * audio_RMS_feature + 0.3 * beat_impulse`, clipped to `[0,1]`,
-with an exponential release of `0.78` per frame. The model is a small causal TCN with
-a 29-frame receptive field and sigmoid output. Weighted MSE gives target frames above
+with an exponential release of `0.78` per frame. The original model is a small causal TCN with
+a 29-frame receptive field and sigmoid output. The opt-in `warmup-linear-v2` model
+adds silent prehistory and a bounded linear output head. Weighted MSE gives target frames above
 0.1 five times the weight. AdamW uses cosine learning-rate decay and gradient clipping.
 
 The deterministic teacher is an oracle with zero target error. The model is not expected
@@ -111,8 +120,8 @@ Events use a fixed 0.2 threshold and a 30 ms matching tolerance. Timing error ex
 misses, so always read it beside event recall. These thresholds are experiment conventions.
 
 Latency is measured on CPU for one whole clip after warmup and excludes preprocessing
-and playback. It is not a streaming latency benchmark. Independent seeds, other sound
-generators, real recordings, and human tests are needed before broader claims.
+and playback. It is not a streaming latency benchmark. Multi-seed synthetic studies and feature-streaming checks are documented in the
+reports above. Real recordings and human tests are still needed before broader claims.
 
 `runs/`, datasets, and weights are ignored by Git except for the explicitly released
 reference weights under `models/001/`. Selected reports and synthetic previews

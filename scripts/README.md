@@ -70,3 +70,26 @@ against prior development data, trains three predetermined initialization seeds,
 and evaluates all three on a fresh held-out test split after training finishes.
 Each run begins with a three-epoch timing check and resumes its saved checkpoint.
 It retains the same synthetic instruments and teacher; this is not a real-music test.
+
+## Sound diversity and transfer
+
+```bash
+uv run python scripts/run_diversity_study.py --baseline-runs runs/scale003 --out runs/diversity004
+```
+
+Reproduce study 003 first if its three local checkpoints are unavailable. This command
+checks the first fixed baseline on diverse validation clips, trains three models on
+`synthetic-diverse-v2`, then compares every original/retrained pair on the same new
+test split. The generator uses only procedural sounds. The plan is in
+`reports/diversity004/PLAN.md`.
+
+For explicit evaluation on a different dataset with the same feature/target contract:
+
+```bash
+uv run python -m felt.evaluate --checkpoint runs/scale003/seed7/best.pt --dataset-config configs/diversity004.json --split val --out runs/transfer-check
+```
+
+Both training and evaluation dataset IDs, the checkpoint checksum, and profile-level
+metrics are recorded. Model architecture always comes from the checkpoint. Default
+evaluation still requires the original dataset identity. The constant-mean comparison
+uses the evaluation dataset's training split, including for transfer evaluations.

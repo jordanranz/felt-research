@@ -1,0 +1,16 @@
+{
+  "python": "3.12.14",
+  "platform": "macOS-26.6.2-arm64-arm-64bit",
+  "torch": "2.14.0",
+  "numpy": "2.5.3",
+  "packages": {
+    "felt-research": "0.1.0",
+    "numpy": "2.5.3",
+    "torch": "2.14.0",
+    "matplotlib": "3.11.2"
+  },
+  "git_commit": "7a03fa613cf6ca056604d1bb259f9544428143fa",
+  "git_status": "M README.md\n M reports/diversity004/PLAN.md\n M scripts/README.md\n?? docs/",
+  "source_sha256": "fcac8ae0b74d0344a910cb81c95948fc63be6913a2fabcfcc008164e34e590ac",
+  "lock_sha256": "6440f073a9dcdb54ace8c19f4bef60af8a671b5087df8736ae2412afe76092e1"
+}

@@ -1,0 +1,212 @@
+{
+  "7": {
+    "original": {
+      "aggregate": {
+        "active_rmse": true,
+        "event_f1": false,
+        "quiet_mean": true,
+        "startup_rmse": false
+      },
+      "profiles": {
+        "noise_bed": {
+          "active_rmse": true,
+          "event_f1": false,
+          "quiet_mean": true,
+          "startup_rmse": false
+        },
+        "percussion": {
+          "active_rmse": true,
+          "event_f1": true,
+          "quiet_mean": true,
+          "startup_rmse": true
+        },
+        "sparse_dynamics": {
+          "active_rmse": true,
+          "event_f1": true,
+          "quiet_mean": true,
+          "startup_rmse": true
+        },
+        "tonal_bed": {
+          "active_rmse": true,
+          "event_f1": false,
+          "quiet_mean": true,
+          "startup_rmse": false
+        }
+      }
+    },
+    "retrained": {
+      "aggregate": {
+        "active_rmse": true,
+        "event_f1": true,
+        "quiet_mean": true,
+        "startup_rmse": true
+      },
+      "profiles": {
+        "noise_bed": {
+          "active_rmse": true,
+          "event_f1": true,
+          "quiet_mean": true,
+          "startup_rmse": true
+        },
+        "percussion": {
+          "active_rmse": true,
+          "event_f1": true,
+          "quiet_mean": true,
+          "startup_rmse": true
+        },
+        "sparse_dynamics": {
+          "active_rmse": true,
+          "event_f1": true,
+          "quiet_mean": true,
+          "startup_rmse": true
+        },
+        "tonal_bed": {
+          "active_rmse": true,
+          "event_f1": true,
+          "quiet_mean": true,
+          "startup_rmse": true
+        }
+      }
+    }
+  },
+  "19": {
+    "original": {
+      "aggregate": {
+        "active_rmse": true,
+        "event_f1": false,
+        "quiet_mean": true,
+        "startup_rmse": false
+      },
+      "profiles": {
+        "noise_bed": {
+          "active_rmse": true,
+          "event_f1": true,
+          "quiet_mean": true,
+          "startup_rmse": false
+        },
+        "percussion": {
+          "active_rmse": true,
+          "event_f1": true,
+          "quiet_mean": true,
+          "startup_rmse": true
+        },
+        "sparse_dynamics": {
+          "active_rmse": true,
+          "event_f1": true,
+          "quiet_mean": true,
+          "startup_rmse": true
+        },
+        "tonal_bed": {
+          "active_rmse": true,
+          "event_f1": false,
+          "quiet_mean": true,
+          "startup_rmse": false
+        }
+      }
+    },
+    "retrained": {
+      "aggregate": {
+        "active_rmse": true,
+        "event_f1": true,
+        "quiet_mean": true,
+        "startup_rmse": true
+      },
+      "profiles": {
+        "noise_bed": {
+          "active_rmse": true,
+          "event_f1": true,
+          "quiet_mean": true,
+          "startup_rmse": true
+        },
+        "percussion": {
+          "active_rmse": true,
+          "event_f1": true,
+          "quiet_mean": true,
+          "startup_rmse": true
+        },
+        "sparse_dynamics": {
+          "active_rmse": true,
+          "event_f1": true,
+          "quiet_mean": true,
+          "startup_rmse": true
+        },
+        "tonal_bed": {
+          "active_rmse": true,
+          "event_f1": true,
+          "quiet_mean": true,
+          "startup_rmse": true
+        }
+      }
+    }
+  },
+  "42": {
+    "original": {
+      "aggregate": {
+        "active_rmse": true,
+        "event_f1": false,
+        "quiet_mean": true,
+        "startup_rmse": false
+      },
+      "profiles": {
+        "noise_bed": {
+          "active_rmse": true,
+          "event_f1": true,
+          "quiet_mean": true,
+          "startup_rmse": false
+        },
+        "percussion": {
+          "active_rmse": true,
+          "event_f1": true,
+          "quiet_mean": true,
+          "startup_rmse": true
+        },
+        "sparse_dynamics": {
+          "active_rmse": true,
+          "event_f1": true,
+          "quiet_mean": true,
+          "startup_rmse": true
+        },
+        "tonal_bed": {
+          "active_rmse": true,
+          "event_f1": false,
+          "quiet_mean": true,
+          "startup_rmse": false
+        }
+      }
+    },
+    "retrained": {
+      "aggregate": {
+        "active_rmse": true,
+        "event_f1": true,
+        "quiet_mean": true,
+        "startup_rmse": true
+      },
+      "profiles": {
+        "noise_bed": {
+          "active_rmse": true,
+          "event_f1": true,
+          "quiet_mean": true,
+          "startup_rmse": true
+        },
+        "percussion": {
+          "active_rmse": true,
+          "event_f1": true,
+          "quiet_mean": true,
+          "startup_rmse": true
+        },
+        "sparse_dynamics": {
+          "active_rmse": true,
+          "event_f1": true,
+          "quiet_mean": true,
+          "startup_rmse": true
+        },
+        "tonal_bed": {
+          "active_rmse": true,
+          "event_f1": true,
+          "quiet_mean": true,
+          "startup_rmse": true
+        }
+      }
+    }
+  }
+}
