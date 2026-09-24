@@ -177,6 +177,13 @@ def main():
             )
     if len({r["dataset_id"] for r in summary["runs"].values()}) != 1:
         raise ValueError("Dataset identity changed across comparisons")
+    summary["completed"] = True
+    summary["ready_for_larger_synthetic_study"] = args.stage == "confirm" and all(
+        result["passed"] for result in summary["runs"].values() if "passed" in result
+    )
+    (out / "summary.json").write_text(json.dumps(summary, indent=2) + "\n")
+    if args.stage == "confirm" and not summary["ready_for_larger_synthetic_study"]:
+        raise SystemExit("Preflight failed one or more gates; inspect summary.json before scaling")
 
 
 if __name__ == "__main__":

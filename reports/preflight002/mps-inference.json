@@ -1,0 +1,7 @@
+{
+  "mps_available": true,
+  "checkpoint": "runs/preflight002-screen/warmup-linear-v2-seed42/best.pt",
+  "max_abs_cpu_mps_error": 2.384185791015625e-07,
+  "matches_at_1e-4": true,
+  "scope": "Inference parity only; MPS training and GPU runtime not certified"
+}

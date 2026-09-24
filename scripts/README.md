@@ -21,6 +21,16 @@ clips; `--count` selects the first N in manifest order, not new random examples.
 
 ## Training and evaluation
 
+The startup/model preflight is separate from the earlier loss pilot:
+
+```bash
+uv run python scripts/run_preflight.py --stage screen --out runs/new-screen
+uv run python scripts/run_preflight.py --stage confirm --candidate warmup-linear-v2 --out runs/new-confirm
+```
+
+It runs sequentially, keeps data fixed across initialization seeds, evaluates validation
+data only, and records gates and runtime probes. See `reports/preflight002/PLAN.md`.
+
 For the bounded, validation-only loss comparison:
 
 ```bash

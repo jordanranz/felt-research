@@ -7,6 +7,11 @@ Reproducible model training and evaluation for haptics and sensory interaction.
 **Follow-up:** [Short loss pilot](reports/pilot001/README.md). Two alternatives failed the
 validation gates; the original baseline remains the reference model.
 
+**Preflight:** [Startup fixes and five-seed checks](reports/preflight002/README.md).
+The opt-in `warmup-linear-v2` candidate passed all gates for a larger synthetic study.
+Use `configs/preflight002-candidate.json`; the default Experiment 001 config and released
+weights remain unchanged for reproduction.
+
 The first task maps synthetic audio and supplied beat timestamps to a causal,
 100 Hz intensity envelope. The target is a published procedural rule. Learning it
 validates this pipeline; it does not establish perceptual quality or novelty.

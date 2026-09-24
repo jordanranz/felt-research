@@ -1,0 +1,207 @@
+{
+  "stage": "screen",
+  "initialization_seeds": [
+    42
+  ],
+  "dataset_seed": 42,
+  "test_set_evaluated": false,
+  "runs": {
+    "causal-tcn-v1-seed42": {
+      "metrics": {
+        "rmse": 0.06473054736852646,
+        "startup_rmse": 0.20156925916671753,
+        "first_frame_mean_intensity": 0.4374943673610687,
+        "active_rmse": 0.05625111982226372,
+        "silence_mean_intensity": 0.06770311295986176,
+        "event_precision": 0.9628305932809149,
+        "event_recall": 0.9669777458722182,
+        "event_f1": 0.9648997134670487,
+        "matched_timing_mae_ms": 0.46770601336302897,
+        "matched_events": 1347,
+        "missed_events": 46,
+        "extra_events": 52
+      },
+      "probes": {
+        "silence": {
+          "min": 0.0711774080991745,
+          "max": 0.43749430775642395,
+          "mean": 0.08024179190397263,
+          "finite_bounded": true
+        },
+        "beat_only": {
+          "min": 0.014034882187843323,
+          "max": 0.43749430775642395,
+          "mean": 0.08312017470598221,
+          "finite_bounded": true
+        },
+        "impulse": {
+          "min": 0.020424051210284233,
+          "max": 0.5695690512657166,
+          "mean": 0.08306895941495895,
+          "finite_bounded": true
+        },
+        "tone_55hz": {
+          "min": 0.16419608891010284,
+          "max": 0.5254318714141846,
+          "mean": 0.2817651331424713,
+          "finite_bounded": true
+        },
+        "noise": {
+          "min": 0.04475771635770798,
+          "max": 0.520774245262146,
+          "mean": 0.0861765667796135,
+          "finite_bounded": true
+        },
+        "streaming": {
+          "matches_whole_clip": true,
+          "max_abs_error": 5.960464477539063e-08,
+          "single_frame_cpu_p95_ms": 0.14069549797568467,
+          "timing_scope": "Model and feature-history handling only; excludes audio features and I/O"
+        }
+      },
+      "train_wall_seconds": 8.226,
+      "total_wall_seconds": 10.123,
+      "dataset_id": "608d6e414197f0a427c2b74980a3ff7015522b7e43729edcd980b44dc5785380"
+    },
+    "warmup-sigmoid-v2-seed42": {
+      "metrics": {
+        "rmse": 0.05143420025706291,
+        "startup_rmse": 0.053768340498209,
+        "first_frame_mean_intensity": 0.06770026683807373,
+        "active_rmse": 0.052467625588178635,
+        "silence_mean_intensity": 0.05911845713853836,
+        "event_precision": 0.9941520467836257,
+        "event_recall": 0.9763101220387652,
+        "event_f1": 0.9851503078594712,
+        "matched_timing_mae_ms": 0.4411764705882353,
+        "matched_events": 1360,
+        "missed_events": 33,
+        "extra_events": 8
+      },
+      "probes": {
+        "silence": {
+          "min": 0.06770026683807373,
+          "max": 0.06770026683807373,
+          "mean": 0.06770026683807373,
+          "finite_bounded": true
+        },
+        "beat_only": {
+          "min": 0.013522196561098099,
+          "max": 0.33296462893486023,
+          "mean": 0.07264620065689087,
+          "finite_bounded": true
+        },
+        "impulse": {
+          "min": 0.02210858277976513,
+          "max": 0.5759785175323486,
+          "mean": 0.07049371302127838,
+          "finite_bounded": true
+        },
+        "tone_55hz": {
+          "min": 0.15389521420001984,
+          "max": 0.6005715727806091,
+          "mean": 0.25930798053741455,
+          "finite_bounded": true
+        },
+        "noise": {
+          "min": 0.05092089623212814,
+          "max": 0.5088029503822327,
+          "mean": 0.07899659126996994,
+          "finite_bounded": true
+        },
+        "streaming": {
+          "matches_whole_clip": true,
+          "max_abs_error": 1.1920928955078125e-07,
+          "single_frame_cpu_p95_ms": 0.14783110018470322,
+          "timing_scope": "Model and feature-history handling only; excludes audio features and I/O"
+        }
+      },
+      "train_wall_seconds": 8.529,
+      "total_wall_seconds": 10.455,
+      "dataset_id": "608d6e414197f0a427c2b74980a3ff7015522b7e43729edcd980b44dc5785380",
+      "gates": {
+        "quiet_halved": false,
+        "startup_halved": true,
+        "active_preserved": true,
+        "events_preserved": true,
+        "active_absolute": true,
+        "events_absolute": true,
+        "silence_peak": false,
+        "probe_bounds": true,
+        "streaming_equivalence": true,
+        "frame_budget": true
+      },
+      "passed": false
+    },
+    "warmup-linear-v2-seed42": {
+      "metrics": {
+        "rmse": 0.01773259788751602,
+        "startup_rmse": 0.004476522095501423,
+        "first_frame_mean_intensity": 0.0,
+        "active_rmse": 0.025094199925661087,
+        "silence_mean_intensity": 0.002010868862271309,
+        "event_precision": 0.9971326164874552,
+        "event_recall": 0.9985642498205313,
+        "event_f1": 0.9978479196556673,
+        "matched_timing_mae_ms": 0.014378145219266714,
+        "matched_events": 1391,
+        "missed_events": 2,
+        "extra_events": 4
+      },
+      "probes": {
+        "silence": {
+          "min": 0.0,
+          "max": 0.0,
+          "mean": 0.0,
+          "finite_bounded": true
+        },
+        "beat_only": {
+          "min": 0.0,
+          "max": 0.303522527217865,
+          "mean": 0.018019452691078186,
+          "finite_bounded": true
+        },
+        "impulse": {
+          "min": 0.0,
+          "max": 0.7015604376792908,
+          "mean": 0.005890259984880686,
+          "finite_bounded": true
+        },
+        "tone_55hz": {
+          "min": 0.1418703943490982,
+          "max": 0.5108368396759033,
+          "mean": 0.2163831889629364,
+          "finite_bounded": true
+        },
+        "noise": {
+          "min": 0.1442594975233078,
+          "max": 0.49276643991470337,
+          "mean": 0.20359176397323608,
+          "finite_bounded": true
+        },
+        "streaming": {
+          "matches_whole_clip": true,
+          "max_abs_error": 1.1920928955078125e-07,
+          "single_frame_cpu_p95_ms": 0.1576627961185295,
+          "timing_scope": "Model and feature-history handling only; excludes audio features and I/O"
+        }
+      },
+      "train_wall_seconds": 8.589,
+      "total_wall_seconds": 10.519,
+      "dataset_id": "608d6e414197f0a427c2b74980a3ff7015522b7e43729edcd980b44dc5785380",
+      "gates": {
+        "quiet_halved": true,
+        "startup_halved": true,
+        "active_preserved": true,
+        "events_preserved": true,
+        "active_absolute": true,
+        "events_absolute": true,
+        "silence_peak": true,
+        "probe_bounds": true,
+        "streaming_equivalence": true,
+        "frame_budget": true
+      },
+      "passed": true
+    }
+  }
+}
