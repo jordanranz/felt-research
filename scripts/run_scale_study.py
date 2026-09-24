@@ -13,16 +13,20 @@ from felt.data import digest, families, load_config, make_dataset
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--out", required=True)
+    parser.add_argument("--config", default="configs/scale003.json")
+    parser.add_argument("--prior-config", action="append", default=["configs/experiment001.json"])
     args = parser.parse_args()
     out = Path(args.out)
     if out.exists() and any(out.iterdir()):
         raise ValueError("Use a fresh study directory")
     out.mkdir(parents=True, exist_ok=True)
-    config = load_config("configs/scale003.json")
+    config = load_config(args.config)
     if config["variants_per_family"] > 100:
         raise ValueError("synthetic-v1 seed spacing requires at most 100 variants")
-    prior = load_config("configs/experiment001.json")
-    overlap = set(map(digest, families(prior))) & set(map(digest, families(config)))
+    prior_groups = set()
+    for path in args.prior_config:
+        prior_groups.update(map(digest, families(load_config(path))))
+    overlap = prior_groups & set(map(digest, families(config)))
     if overlap:
         raise ValueError("New study overlaps earlier development families")
     arrays, manifest = make_dataset(config)
@@ -38,6 +42,7 @@ def main():
         "initialization_seeds": [7, 19, 42],
         "dataset_id": manifest["dataset_id"],
         "prior_family_overlap": len(overlap),
+        "prior_configs": args.prior_config,
         "feature_target_bytes": sum(a.nbytes for pair in arrays.values() for a in pair),
         "clips": {key: len(pair[0]) for key, pair in arrays.items()},
         "runs": {},

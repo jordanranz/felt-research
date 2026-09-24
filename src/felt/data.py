@@ -6,6 +6,8 @@ from pathlib import Path
 
 import numpy as np
 
+from felt.audio.synthetic import profile, synthesize_diverse
+
 
 def digest(value):
     return hashlib.sha256(json.dumps(value, sort_keys=True).encode()).hexdigest()
@@ -19,8 +21,11 @@ def load_config(path):
         raise ValueError("Duration must contain a whole number of frames")
     if config["lookahead_frames"] != 0 or config["precision"] != "float32":
         raise ValueError("Experiment 001 supports causal float32 only")
+    if config["generator_version"] not in ("synthetic-v1", "synthetic-diverse-v2"):
+        raise ValueError("Unsupported generator version")
+    if config["generator_version"] == "synthetic-diverse-v2" and config["sample_rate"] < 8000:
+        raise ValueError("Diverse synthesis requires sample_rate >= 8000")
     expected = {
-        "generator_version": "synthetic-v1",
         "preprocessing_version": "frame-features-v1",
         "target_version": "causal-rule-v1",
     }
@@ -71,6 +76,8 @@ def families(config):
 
 
 def synthesize(pattern, seed, config):
+    if config["generator_version"] == "synthetic-diverse-v2":
+        return synthesize_diverse(pattern, seed, config)
     rng = np.random.default_rng(seed)
     sr = config["sample_rate"]
     seconds = config["seconds"]
@@ -128,6 +135,8 @@ def teacher(x):
 
 
 def make_dataset(config):
+    if config["variants_per_family"] > 100:
+        raise ValueError("Generator seed spacing supports at most 100 variants per family")
     patterns = families(config)
     splits, records, cursor = {}, [], 0
     content_hash = hashlib.sha256()
@@ -153,6 +162,8 @@ def make_dataset(config):
                         "audio_sha256": hashlib.sha256(wav.tobytes()).hexdigest(),
                     }
                 )
+                if config["generator_version"] == "synthetic-diverse-v2":
+                    records[-1]["sound_profile"] = profile(seed)
                 content_hash.update(x.tobytes())
                 content_hash.update(y.tobytes())
         splits[split] = np.stack(xs), np.stack(ys)

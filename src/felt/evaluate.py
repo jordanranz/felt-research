@@ -1,6 +1,7 @@
 """Evaluate the validation-selected checkpoint once on held-out synthetic families."""
 
 import argparse
+import hashlib
 import json
 import time
 from pathlib import Path
@@ -12,7 +13,7 @@ import torch
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt  # noqa: E402
 
-from felt.data import features, make_dataset, synthesize, teacher
+from felt.data import features, load_config, make_dataset, synthesize, teacher
 from felt.models import EnvelopeModel
 from felt.patterns import pattern, save
 from felt.preview import render, write_wav
@@ -57,18 +58,30 @@ def metrics(predicted, target, hz=100):
     }
 
 
-def evaluate(checkpoint_path, out, split="test"):
+def evaluate(checkpoint_path, out, split="test", dataset_config=None):
     if split not in ("val", "test"):
         raise ValueError("Evaluation split must be val or test")
     out = Path(out)
     out.mkdir(parents=True, exist_ok=True)
     checkpoint = torch.load(checkpoint_path, map_location="cpu", weights_only=True)
-    config = checkpoint["config"]
+    training_config = checkpoint["config"]
+    config = load_config(dataset_config) if dataset_config else training_config
+    for key in (
+        "sample_rate",
+        "frame_rate",
+        "preprocessing_version",
+        "target_version",
+        "lookahead_frames",
+    ):
+        if config[key] != training_config[key]:
+            raise ValueError(f"Incompatible evaluation contract: {key}")
     torch.set_num_threads(config["threads"])
     splits, manifest = make_dataset(config)
-    if checkpoint["dataset_id"] != manifest["dataset_id"]:
+    if dataset_config is None and checkpoint["dataset_id"] != manifest["dataset_id"]:
         raise ValueError("Evaluation dataset does not match training manifest")
-    model = EnvelopeModel(checkpoint["mode"], config["hidden_channels"], config["model_version"])
+    model = EnvelopeModel(
+        checkpoint["mode"], training_config["hidden_channels"], training_config["model_version"]
+    )
     model.load_state_dict(checkpoint["state_dict"])
     model.eval()
     x, y = splits[split]
@@ -92,6 +105,10 @@ def evaluate(checkpoint_path, out, split="test"):
     report = {
         "mode": checkpoint["mode"],
         "dataset_id": manifest["dataset_id"],
+        "training_dataset_id": checkpoint["dataset_id"],
+        "external_dataset": dataset_config is not None,
+        "training_config": training_config,
+        "checkpoint_sha256": hashlib.sha256(Path(checkpoint_path).read_bytes()).hexdigest(),
         "config": config,
         "training_environment": checkpoint["environment"],
         "evaluation_environment": environment(),
@@ -107,8 +124,24 @@ def evaluate(checkpoint_path, out, split="test"):
             "warmup": 5,
             "repetitions": 30,
         },
-        "latency_scope": "Model only, full 8-second clip; excludes preprocessing and playback. "
+        "latency_scope": f"Model only, full {config['seconds']}-second clip; excludes preprocessing and playback. "
         "This is not a streaming latency measurement.",
+    }
+    records = [r for r in manifest["records"] if r["split"] == split]
+    profiles = sorted({r["sound_profile"] for r in records if "sound_profile" in r})
+    report["sound_profiles"] = {
+        name: {
+            "clips": sum(r.get("sound_profile") == name for r in records),
+            "metrics": {
+                label: metrics(
+                    value[[r.get("sound_profile") == name for r in records]],
+                    y[[r.get("sound_profile") == name for r in records]],
+                    config["frame_rate"],
+                )
+                for label, value in outputs.items()
+            },
+        }
+        for name in profiles
     }
     (out / "metrics.json").write_text(json.dumps(report, indent=2) + "\n")
     record = next(r for r in manifest["records"] if r["split"] == split)
@@ -151,8 +184,12 @@ def main():
     parser.add_argument("--checkpoint", required=True)
     parser.add_argument("--out", required=True)
     parser.add_argument("--split", choices=["val", "test"], default="test")
+    parser.add_argument(
+        "--dataset-config",
+        help="Explicit external dataset; records training and evaluation identities",
+    )
     args = parser.parse_args()
-    evaluate(args.checkpoint, args.out, args.split)
+    evaluate(args.checkpoint, args.out, args.split, args.dataset_config)
 
 
 if __name__ == "__main__":
