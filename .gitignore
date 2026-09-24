@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+.DS_Store
+runs/
+data/
+*.pt
+*.pth
+.env
+.env.*
+!.env.example
+dist/
+.pytest_cache/
+.ruff_cache/
