@@ -51,7 +51,8 @@ The dataset's feature/target arrays occupy 55,296,000 bytes, not peak process RA
 All 25 tests, Ruff checks and the offline package build passed locally. The initial
 Linux CI run exposed a platform-specific byte-hash assumption in a new regression
 test. That test now compares outputs from the pre-change generator with explicit
-numeric tolerances, while requiring exact family/beat metadata. Training code and
+numeric tolerances for features, targets and floating-point beat times, while
+requiring exact split/family/pattern/seed metadata. Training code and
 reported study results were unchanged by this test correction.
 
 ## Interpretation and next step

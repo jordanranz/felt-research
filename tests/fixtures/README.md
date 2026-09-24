@@ -7,8 +7,9 @@ JSON preserves split, family, pattern, seed, tempo and beat metadata.
 
 These original synthetic outputs are MIT-licensed with the repository. They were
 captured on macOS ARM64 with the repository's locked Python environment. The
-regression test requires exact metadata and numeric agreement within relative
-1e-5 and absolute 1e-7 tolerances for floating-point features and targets. Tests
+regression test requires exact split/family/pattern/seed metadata, absolute 1e-12
+tolerance for floating-point tempo and beat timestamps, and relative 1e-5 and
+absolute 1e-7 tolerances for floating-point features and targets. Tests
 also independently require exact regeneration within the current environment.
 
 A raw byte hash is not a portable numeric equivalence test across operating

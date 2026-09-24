@@ -19,7 +19,12 @@ def test_original_generator_matches_frozen_legacy_outputs():
         {k: r[k] for k in ("split", "family", "pattern", "seed", "bpm", "beats")}
         for r in manifest["records"]
     ]
-    assert records == expected["records"]
+    assert len(records) == len(expected["records"])
+    for actual, frozen_record in zip(records, expected["records"], strict=True):
+        for key in ("split", "family", "pattern", "seed"):
+            assert actual[key] == frozen_record[key]
+        np.testing.assert_allclose(actual["bpm"], frozen_record["bpm"], rtol=0, atol=1e-12)
+        np.testing.assert_allclose(actual["beats"], frozen_record["beats"], rtol=0, atol=1e-12)
     # Floating-point audio/FFT bytes may differ across operating systems.
     # Same-environment exact regeneration is separately tested in test_contract.
     with np.load(fixture.with_suffix(".npz"), allow_pickle=False) as frozen:
