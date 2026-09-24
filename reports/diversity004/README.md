@@ -48,7 +48,11 @@ were evaluated without selecting a winning seed or tuning on this test set.
 The three diverse training runs took 247.3
 seconds total including pilot and resume overhead, excluding separate evaluations.
 The dataset's feature/target arrays occupy 55,296,000 bytes, not peak process RAM.
-All 25 tests, Ruff checks and the offline package build passed locally.
+All 25 tests, Ruff checks and the offline package build passed locally. The initial
+Linux CI run exposed a platform-specific byte-hash assumption in a new regression
+test. That test now compares outputs from the pre-change generator with explicit
+numeric tolerances, while requiring exact family/beat metadata. Training code and
+reported study results were unchanged by this test correction.
 
 ## Interpretation and next step
 

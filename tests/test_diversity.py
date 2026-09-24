@@ -10,12 +10,22 @@ from felt.evaluate import evaluate
 from felt.train import train
 
 
-def test_original_dataset_identity_is_unchanged():
+def test_original_generator_matches_frozen_legacy_outputs():
     config = load_config(Path(__file__).parents[1] / "configs/experiment001.json")
-    _, manifest = make_dataset(config)
-    assert (
-        manifest["dataset_id"] == "608d6e414197f0a427c2b74980a3ff7015522b7e43729edcd980b44dc5785380"
-    )
+    arrays, manifest = make_dataset(config)
+    fixture = Path(__file__).parent / "fixtures/synthetic-v1"
+    expected = json.loads(fixture.with_suffix(".json").read_text())
+    records = [
+        {k: r[k] for k in ("split", "family", "pattern", "seed", "bpm", "beats")}
+        for r in manifest["records"]
+    ]
+    assert records == expected["records"]
+    # Floating-point audio/FFT bytes may differ across operating systems.
+    # Same-environment exact regeneration is separately tested in test_contract.
+    with np.load(fixture.with_suffix(".npz"), allow_pickle=False) as frozen:
+        for split, pair in arrays.items():
+            for kind, actual in zip(("features", "targets"), pair, strict=True):
+                np.testing.assert_allclose(actual, frozen[f"{split}_{kind}"], rtol=1e-5, atol=1e-7)
 
 
 def test_diverse_reproducibility_profiles_and_group_isolation(config):

@@ -73,7 +73,10 @@ uv run python -m felt.train --out runs/resume-demo --resume runs/resume-demo/las
 Checkpoints are atomic and resumable at **epoch boundaries**, not arbitrary batches.
 The dataset is regenerated and checked by hash. The config, code hash, key dependency
 versions, and platform must match. Checkpoints include the optimizer, scheduler,
-best model, history, and random-number states. Load full training checkpoints only
+best model, history, and random-number states. Floating-point synthesis and FFT
+results can differ slightly across platforms, changing the dataset byte hash.
+Exact resume is therefore environment-specific; cross-platform transfer evaluation
+requires an explicit `--dataset-config` and records both dataset identities. Load full training checkpoints only
 from trusted sources because they contain pickled Python state.
 
 ## Data and target
